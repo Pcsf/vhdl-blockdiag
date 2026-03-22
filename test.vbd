@@ -1,0 +1,14 @@
+(block dac_ctrl
+  :ports ((clk     :in  std_logic)
+          (data    :in  "std_logic_vector(15 downto 0)")
+          (spi_out :out std_logic)))
+
+(block filter
+  :ports ((clk    :in  std_logic)
+          (x_in   :in  "std_logic_vector(15 downto 0)")
+          (x_out  :out "std_logic_vector(15 downto 0)")))
+
+(wire filter/x_out -> dac_ctrl/data)
+(wire top/clk      -> filter/clk dac_ctrl/clk)
+(wire top/input_data -> filter/x_in)
+(wire dac_ctrl/spi_out -> top/spi_out)
